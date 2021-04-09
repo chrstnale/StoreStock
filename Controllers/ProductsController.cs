@@ -1,4 +1,5 @@
-﻿using StoreStock.Models;
+﻿using StoreStock.Data;
+using StoreStock.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +14,16 @@ namespace StoreStock.Controllers
         public ActionResult Index()
         {
             List<ProductModel> products = new List<ProductModel>();
+            ProductDAO productDAO = new ProductDAO();
 
-            products.Add(new ProductModel("TEE01-BL", "T-Shirt Dragon", 100, 90, 8, 10, 100000));
-            products.Add(new ProductModel("TEE02-BL", "T-Shirt Unicorn", 100, 80, 8, 10, 100000));
-            products.Add(new ProductModel("TEE03-BL", "T-Shirt Phoenix", 100, 70, 8, 10, 100000));
+            products = productDAO.FetchAll();
+
+            //products.Add(new ProductModel("TEE01-BL", "T-Shirt Dragon", 100, 100000));
+            //products.Add(new ProductModel("TEE02-BL", "T-Shirt Unicorn", 100, 100000));
+            //products.Add(new ProductModel("TEE03-BL", "T-Shirt Phoenix", 100, 100000));
 
             return View("Index", products);
         }
+
     }
 }
