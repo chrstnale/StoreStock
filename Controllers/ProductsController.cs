@@ -18,12 +18,32 @@ namespace StoreStock.Controllers
 
             products = productDAO.FetchAll();
 
-            //products.Add(new ProductModel("TEE01-BL", "T-Shirt Dragon", 100, 100000));
-            //products.Add(new ProductModel("TEE02-BL", "T-Shirt Unicorn", 100, 100000));
-            //products.Add(new ProductModel("TEE03-BL", "T-Shirt Phoenix", 100, 100000));
-
             return View("Index", products);
         }
 
+        public ActionResult Details(int id)
+        {
+
+            ProductDAO productDAO = new ProductDAO();
+
+            ProductModel product = productDAO.FetchOne(id);
+
+            return View("Details", product);
+        }
+        public ActionResult Create()
+        {
+            return View("ProductForm");
+        }
+
+        public ActionResult ProcessCreate(ProductModel productModel)
+        {
+
+            ProductDAO productDAO = new ProductDAO();
+
+            productDAO.Create(productModel);
+
+
+            return View("Details", productModel);
+        }
     }
 }

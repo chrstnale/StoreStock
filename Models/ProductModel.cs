@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,21 +8,29 @@ namespace StoreStock.Models
 {
     public class ProductModel
     {
+        [Required]
+        public int ID  { get; set; }
+        [Required]
         public string Code { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public int Amount { get; set; }
+        [Required]
         public int Price { get; set; }
 
         public ProductModel()
         {
-            Code = "TEE01-BL";
-            Name = "Blue Dragon T-Shirt";
-            Amount = 100;
-            Price = 100000;
+            ID = 0;
+            Code = "Product Code";
+            Name = "Product Name";
+            Amount = 0;
+            Price = 0;
         }
 
-        public ProductModel(string code, string name, int amount, int price)
+        public ProductModel(int id, string code, string name, int amount, int price)
         {
+            ID = id;
             Code = code;
             Name = name;
             Amount = amount;
