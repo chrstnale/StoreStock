@@ -10,6 +10,7 @@ namespace StoreStock.Controllers
 {
     public class ProductsController : Controller
     {
+
         // GET: Products
         public ActionResult Index()
         {
@@ -48,9 +49,17 @@ namespace StoreStock.Controllers
             ProductDAO productDAO = new ProductDAO();
 
             productDAO.Create(productModel);
-
+       
 
             return View("Details", productModel);
+        }
+        public ActionResult Delete(int id)
+        {
+            ProductDAO productDAO = new ProductDAO();
+            productDAO.Delete(id);
+
+            List<ProductModel> product = productDAO.FetchAll();
+            return View("Index", product);
         }
     }
 }

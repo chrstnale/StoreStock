@@ -38,6 +38,25 @@ namespace StoreStock.Data
             }
             return returnList;
         }
+
+        internal int Delete(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string sqlQuery = "DELETE FROM dbo.Products WHERE ID = @id";
+                SqlCommand command = new SqlCommand(sqlQuery, connection);
+
+                command.Parameters.Add("@ID", System.Data.SqlDbType.Int).Value = id;
+
+                connection.Open();
+
+                int deletedId = command.ExecuteNonQuery();
+
+                return deletedId;
+
+            }
+
+        }
         //Fetch one data
         public ProductModel FetchOne(int Id)
         {
@@ -84,7 +103,6 @@ namespace StoreStock.Data
             else
             {
                 sqlQuery = "UPDATE dbo.Products SET Code = @Code, Name = @Name, Amount = @Amount, Price = @Price WHERE ID= @ID";
-
             }
 
             using (SqlConnection connection = new SqlConnection(connectionString))
