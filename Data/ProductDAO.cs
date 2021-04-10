@@ -7,7 +7,7 @@ namespace StoreStock.Data
     internal class ProductDAO
     {
         private string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=StoreStock;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        
+
         //Show all data
         public List<ProductModel> FetchAll()
         {
@@ -36,12 +36,12 @@ namespace StoreStock.Data
                     }
                 }
             }
-                return returnList;
+            return returnList;
         }
         //Fetch one data
         public ProductModel FetchOne(int Id)
         {
-            
+
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -63,17 +63,17 @@ namespace StoreStock.Data
                         product.Code = reader.GetString(1);
                         product.Name = reader.GetString(2);
                         product.Amount = reader.GetInt32(3);
-                        product.Price = (reader.GetInt32(4);
+                        product.Price = reader.GetInt32(4);
 
                     }
                 }
                 return product;
             }
-            
+
         }
 
         //Create new data
-        public int CreateOrUpdate(ProductModel productModel)
+        public int Create(ProductModel productModel)
         {
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -93,7 +93,7 @@ namespace StoreStock.Data
 
                 return newId;
             }
-            
+
         }
     }
 }
