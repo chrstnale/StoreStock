@@ -34,6 +34,13 @@ namespace StoreStock.Controllers
         {
             return View("ProductForm");
         }
+        public ActionResult Edit(int id)
+        {
+            ProductDAO productDAO = new ProductDAO();
+
+            ProductModel product = productDAO.FetchOne(id);
+            return View("ProductForm", product);
+        }
 
         public ActionResult ProcessCreate(ProductModel productModel)
         {

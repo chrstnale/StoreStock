@@ -75,13 +75,25 @@ namespace StoreStock.Data
         //Create new data
         public int Create(ProductModel productModel)
         {
+            string sqlQuery = "";
+            if(productModel.ID <= 0)
+            {
+                sqlQuery = "INSERT INTO dbo.Products VALUES(@Code, @Name, @Amount, @Price)";
+
+            }
+            else
+            {
+                sqlQuery = "UPDATE dbo.Products SET Code = @Code, Name = @Name, Amount = @Amount, Price = @Price WHERE ID= @ID";
+
+            }
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
 
-                string sqlQuery = "INSERT INTO dbo.Products VALUES(@Code, @Name, @Amount, @Price)";
+                
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
 
+                command.Parameters.Add("@ID", System.Data.SqlDbType.Int).Value = productModel.ID;
                 command.Parameters.Add("@Code", System.Data.SqlDbType.VarChar, 1000).Value = productModel.Code;
                 command.Parameters.Add("@Name", System.Data.SqlDbType.VarChar, 1000).Value = productModel.Name;
                 command.Parameters.Add("@Amount", System.Data.SqlDbType.Int).Value = productModel.Amount;
